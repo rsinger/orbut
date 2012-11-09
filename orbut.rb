@@ -11,5 +11,5 @@ get '/hail' do
 end
 
 post '/hail' do
-  haml :save_query
+  params.inspect
 end

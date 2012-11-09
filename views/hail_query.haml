@@ -2,15 +2,58 @@
   .span12
     .well
       %h2 Build your query
-.row
-  .span12
-    %a.btn.btn-primary{:href=>"#new-text-query",:"data-toggle"=>'modal'} Add text query
-    %a.btn.btn-success{:href=>"#new-time-filter",:"data-toggle"=>'modal'} Add Time Filter    
-    %a.btn.btn-info{:href=>"#new-location-filter",:"data-toggle"=>'modal'} Add Location Filter        
+%form.form-horizontal{:method=>"post", :action=>'/hail',:id=>'requestForm'}
+  .row
+    .span12
+      %ul.nav.nav-tabs{:id=>'tab'}
+        %li.active
+          %a{:href=>"#you", :"data-toggle"=>'tab'} who are you
+        %li
+          %a{:href=>"#query", :"data-toggle"=>'tab'} hail your query          
+        %li
+          %a{:href=>"#services", :"data-toggle"=>'tab'} destinations      
+
+  .row
+    .span12
+      .tab-content
+        #you.tab-pane.active
+          .row
+            .span10
+              .control-group
+                %label.control-label Your email address
+                .controls
+                  %input.span5{:type=>'text', :name=>'user_id', :id=>'user_id'}
+        #query.tab-pane
+          .row
+            .span10
+              %a.btn.btn-warning{:href=>"#new-text-query",:"data-toggle"=>'modal'} add text query
+              %a.btn.btn-success{:href=>"#new-temporal-query",:"data-toggle"=>'modal'} add Time Filter    
+              %a.btn.btn-info{:href=>"#new-location-filter",:"data-toggle"=>'modal'} add Location Filter        
     
     
-.row
-  .span12.queries
+          .row
+            .span10{:id=>'query-container'}
+        #services.tab-pane
+          .row
+            .span10
+              .control-group
+                %label.control-label frequency
+                .controls
+                  %select{:name=>'frequency',:id=>'cab_frequency'}
+                    %option{:value=>'daily'} Daily
+                    %option{:value=>'weekly'} Weekly
+                    %option{:value=>'monthly'} Monthly                                       
+                  
+              .control-group
+                %label.control-label.checkbox email
+                .controls.checkbox
+                  %input{:type=>"checkbox", :name=>'services[]',:value=>'email'}
+
+  .row
+    .span12
+      .form-actions
+        %a.btn.btnNext#btnSubmit next step &raquo;
+                
   
   
 .modal.hide.fade{:id=>"new-text-query"}
@@ -21,4 +64,38 @@
     .control-group
       %label.control-label Terms
       .controls
-        %input.span6{:type=>'text'}
+        .input-prepend
+          %select.span1{:name=>"field",:id=>'text-query-field'}
+            %option{:value=>'*'} Any
+            %option{:value=>'title'} Title
+            %option{:value=>'description'} Description
+            %option{:value=>'subject'} Subject
+            %option{:value=>'creator'} Creator
+            %option{:value=>'type'} Type
+            %option{:value=>'publisher'} Publisher
+            %option{:value=>'format'} Format
+            %option{:value=>'rights'} Rights
+            %option{:value=>'contributor'} Contributor
+          
+          %input.span6{:type=>'text', :id=>'text-query-value'}
+  .modal-footer
+    %a.btn.btn-primary.save-text-query.close{:href=>"#",:"data-dismiss"=>'modal'} Save
+    %a.btn.close{:href=>"#",:"data-dismiss"=>'modal'} Cancel
+    
+.modal.hide.fade{:id=>"new-temporal-query"}
+  .modal-header
+    %button.close{:type=>'button',:"data-dismiss"=>'modal',:"aria-hidden"=>"true"} x
+    %h3 Add a new time filter
+  .modal-body
+    .control-group
+      %label.control-label Terms
+      .controls
+        .input-prepend
+          %select.span1{:name=>"modifier",:id=>'temporal-modifier'}
+            %option{:value=>'after'} After
+            %option{:value=>'before'} Before
+
+          %input.span2{:type=>'date', :id=>'temporal-value'}
+  .modal-footer
+    %a.btn.btn-primary.save-temporal-query.close{:href=>"#",:"data-dismiss"=>'modal'} Save
+    %a.btn.close{:href=>"#",:"data-dismiss"=>'modal'} Cancel    
