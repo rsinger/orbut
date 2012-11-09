@@ -1,0 +1,24 @@
+.row
+  .span12
+    .well
+      %h2 Build your query
+.row
+  .span12
+    %a.btn.btn-primary{:href=>"#new-text-query",:"data-toggle"=>'modal'} Add text query
+    %a.btn.btn-success{:href=>"#new-time-filter",:"data-toggle"=>'modal'} Add Time Filter    
+    %a.btn.btn-info{:href=>"#new-location-filter",:"data-toggle"=>'modal'} Add Location Filter        
+    
+    
+.row
+  .span12.queries
+  
+  
+.modal.hide.fade{:id=>"new-text-query"}
+  .modal-header
+    %button.close{:type=>'button',:"data-dismiss"=>'modal',:"aria-hidden"=>"true"} x
+    %h3 Add a new text query
+  .modal-body
+    .control-group
+      %label.control-label Terms
+      .controls
+        %input.span6{:type=>'text'}
